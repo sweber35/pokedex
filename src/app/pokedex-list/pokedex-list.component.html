@@ -1,5 +1,17 @@
 <button (click)="list()">get list</button>
-<!--<h1>Count: {{pokemon.entry}}</h1>-->
-<div *ngFor="let poke of (pokemon$ | async)?.results">
-  {{ poke.name }} : {{ poke.url }} : {{ poke?.id }}
-</div>
+
+<button (click)="previous()" *ngIf="offset > 0">previous page</button>
+<button (click)="next()">next page</button>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Sprite</th>
+    <th>Name</th>
+  </tr>
+  <tr *ngFor="let poke of pokemon">
+    <td id="id">{{ poke.id }}</td>
+    <td id="sprite"><img src="{{ poke.sprite }}"></td>
+    <td id="name">{{ poke.name | titlecase }}</td>
+  </tr>
+</table>
+

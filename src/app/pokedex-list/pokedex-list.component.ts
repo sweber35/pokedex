@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-// import { Observable } from 'rxjs';
 import { PokemonService } from '../pokemon.service';
-// import {PokemonEntry} from '../pokemon-entry';
-import { PokemonList } from '../pokemon-list';
-import { Observable } from 'rxjs';
+import { PokemonEntry } from '../pokemon-entry';
 
 @Component({
   selector: 'app-list',
@@ -13,12 +10,30 @@ import { Observable } from 'rxjs';
 })
 export class PokedexListComponent implements OnInit {
 
-  pokemon$: Observable<PokemonList>;
-
+  pokemon: PokemonEntry[];
+  offset = 0;
   constructor( private pokemonService: PokemonService ) {}
 
   list(): void {
-    this.pokemon$ = this.pokemonService.findAll(1, 10);
+    this.pokemonService.findAll(this.offset, 10)
+      .subscribe(response => {
+         // console.log(response.results);
+        let temp: PokemonEntry[] = [];
+        response.results.forEach( entry => {
+          temp.push(new PokemonEntry(entry.url, entry.name));
+        });
+        this.pokemon = temp;
+      });
+  }
+
+  next(): void {
+    this.offset += 10;
+    this.list();
+  }
+
+  previous(): void {
+    this.offset -= 10;
+    this.list();
   }
 
 

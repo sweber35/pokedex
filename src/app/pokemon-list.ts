@@ -1,11 +1,16 @@
-export class PokemonList {
-  url: string;
-  name: string;
-  id: number;
+import { PokemonEntry } from './pokemon-entry'
 
-  constructor(url: string, name: string) {
-    this.url = url;
-    this.name = name;
-    this.id = +url.split('/')[6];
+export class PokemonList {
+
+  count: number;
+  previous: string;
+  next: string;
+  results: PokemonEntry[];
+
+  constructor(count: number, previous: string, next: string, results: PokemonEntry[]) {
+    this.count = count;
+    this.previous = previous;
+    this.next = next;
+    this.results = results;
   }
 }

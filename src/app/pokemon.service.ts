@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { PokemonList } from './pokemon-list';
-import {PokemonEntry} from './pokemon-entry';
 
 
 
