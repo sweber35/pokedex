@@ -1,6 +1,6 @@
 import { PokemonEntry } from './pokemon-entry'
 
-export class PokemonList {
+export class PokeApiResponse {
 
   count: number;
   previous: string;

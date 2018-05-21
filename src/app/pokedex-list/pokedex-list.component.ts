@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../pokemon.service';
-import { PokemonEntry } from '../pokemon-entry';
+import { Observable } from "rxjs/index";
+import { PokeApiResponse } from "../poke-api-response";
 
 @Component({
   selector: 'app-list',
@@ -10,20 +11,12 @@ import { PokemonEntry } from '../pokemon-entry';
 })
 export class PokedexListComponent implements OnInit {
 
-  pokemon: PokemonEntry[];
+  pokeApiResponse$: Observable<PokeApiResponse>;
   offset = 0;
   constructor( private pokemonService: PokemonService ) {}
 
   list(): void {
-    this.pokemonService.findAll(this.offset, 10)
-      .subscribe(response => {
-         // console.log(response.results);
-        let temp: PokemonEntry[] = [];
-        response.results.forEach( entry => {
-          temp.push(new PokemonEntry(entry.url, entry.name));
-        });
-        this.pokemon = temp;
-      });
+    this.pokeApiResponse$ = this.pokemonService.findAll(this.offset, 10);
   }
 
   next(): void {

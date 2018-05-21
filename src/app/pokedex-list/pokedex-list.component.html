@@ -8,10 +8,13 @@
     <th>Sprite</th>
     <th>Name</th>
   </tr>
-  <tr *ngFor="let poke of pokemon">
-    <td id="id">{{ poke.id }}</td>
-    <td id="sprite"><img src="{{ poke.sprite }}"></td>
-    <td id="name">{{ poke.name | titlecase }}</td>
-  </tr>
+  <div *ngIf="pokeApiResponse$ | async as pokeApiResponse">
+    <tr *ngFor="let pokemon of pokeApiResponse.results">
+      <td id="id">{{ pokemon.id }}</td>
+      <td id="sprite"><img src="{{ pokemon.sprite }}"></td>
+      <td id="name">{{ pokemon.name | titlecase }}</td>
+    </tr>
+  </div>
+
 </table>
 
